@@ -15,7 +15,7 @@ class RegistrationAPI {
 
   static Future<String> sendLoginCode(String email) async {
     final raw = await _postRaw({'action': 'sendcode', 'email': email});
-    final decoded = jsonDecode(raw.body) as Map<String, dynamic>;
+    final decoded = _decodeJson(raw);
     if (raw.statusCode == 200 && decoded['success'] == true) {
       return decoded['message'] as String? ?? 'Login code sent to your email.';
     }
@@ -28,7 +28,7 @@ class RegistrationAPI {
 
   static Future<AttendeeProfile> login(String email, String code) async {
     final raw = await _postRaw({'action': 'login', 'email': email, 'code': code});
-    final decoded = jsonDecode(raw.body) as Map<String, dynamic>;
+    final decoded = _decodeJson(raw);
     if (raw.statusCode == 200 &&
         decoded['success'] == true &&
         decoded['profile'] != null) {
@@ -39,7 +39,7 @@ class RegistrationAPI {
 
   static Future<AttendeeProfile> fetchStatus(String email) async {
     final raw = await _postRaw({'action': 'status', 'email': email});
-    final decoded = jsonDecode(raw.body) as Map<String, dynamic>;
+    final decoded = _decodeJson(raw);
     if (raw.statusCode == 200 &&
         decoded['success'] == true &&
         decoded['profile'] != null) {
@@ -77,7 +77,22 @@ class RegistrationAPI {
       );
       return _RawResponse(response.statusCode, response.body);
     } catch (e) {
-      return _RawResponse(0, 'Network error: $e');
+      return _RawResponse(0, e.toString());
+    }
+  }
+
+  static Map<String, dynamic> _decodeJson(_RawResponse raw) {
+    if (raw.statusCode == 0) {
+      throw RegistrationAPIError(
+        'No internet connection. Sign in requires an active network connection.',
+      );
+    }
+    try {
+      return jsonDecode(raw.body) as Map<String, dynamic>;
+    } catch (_) {
+      throw RegistrationAPIError(
+        'Could not read server response. Please try again.',
+      );
     }
   }
 }

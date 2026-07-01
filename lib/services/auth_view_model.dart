@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/convention_models.dart';
-import 'registration_api.dart';
+import 'registration_api.dart' show RegistrationAPI, RegistrationAPIError;
 
 class AuthViewModel extends ChangeNotifier {
   AttendeeProfile profile = AttendeeProfile();
@@ -56,7 +56,7 @@ class AuthViewModel extends ChangeNotifier {
     try {
       infoMessage = await RegistrationAPI.sendLoginCode(trimmed);
     } catch (e) {
-      errorMessage = e.toString();
+      errorMessage = _errorText(e);
     }
     isSendingCode = false;
     notifyListeners();
@@ -85,7 +85,7 @@ class AuthViewModel extends ChangeNotifier {
       await save();
       isLoggedIn = true;
     } catch (e) {
-      errorMessage = e.toString();
+      errorMessage = _errorText(e);
     }
     isLoading = false;
     notifyListeners();
@@ -128,5 +128,10 @@ class AuthViewModel extends ChangeNotifier {
   void markCheckedInFromVolunteerScan() {
     infoMessage = "You're checked in. Welcome to the convention!";
     notifyListeners();
+  }
+
+  String _errorText(Object e) {
+    if (e is RegistrationAPIError) return e.message;
+    return 'Something went wrong. Please try again.';
   }
 }
