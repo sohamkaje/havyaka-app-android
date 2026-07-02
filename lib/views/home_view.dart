@@ -18,6 +18,7 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   late Timer _timer;
   int days = 0, hours = 0, minutes = 0, seconds = 0;
+  bool _conventionStarted = false;
 
   @override
   void initState() {
@@ -37,11 +38,18 @@ class _HomeViewState extends State<HomeView> {
     final chicago = target; // July 3 9AM Chicago approximated
     final diff = chicago.difference(DateTime.now());
     if (diff.isNegative) {
-      setState(() { days = hours = minutes = seconds = 0; });
+      if (!_conventionStarted) {
+        setState(() {
+          _conventionStarted = true;
+          days = hours = minutes = seconds = 0;
+        });
+        _timer.cancel();
+      }
       return;
     }
     final total = diff.inSeconds;
     setState(() {
+      _conventionStarted = false;
       seconds = total % 60;
       minutes = (total ~/ 60) % 60;
       hours = (total ~/ 3600) % 24;
@@ -123,19 +131,26 @@ class _HomeViewState extends State<HomeView> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: HAASpacing.lg, vertical: 14),
       color: HAAColors.goldLight,
-      child: Row(
-        children: [
-          Text('Convention starts in', style: HAAFonts.sans(10, weight: FontWeight.w600).copyWith(color: HAAColors.muted)),
-          const Spacer(),
-          _countUnit(days.toString().padLeft(2, '0'), 'days'),
-          _colon(),
-          _countUnit(hours.toString().padLeft(2, '0'), 'hrs'),
-          _colon(),
-          _countUnit(minutes.toString().padLeft(2, '0'), 'min'),
-          _colon(),
-          _countUnit(seconds.toString().padLeft(2, '0'), 'sec'),
-        ],
-      ),
+      child: _conventionStarted
+          ? Center(
+              child: Text(
+                'Convention has started!',
+                style: HAAFonts.sans(14, weight: FontWeight.bold).copyWith(color: HAAColors.charcoal),
+              ),
+            )
+          : Row(
+              children: [
+                Text('Convention starts in', style: HAAFonts.sans(10, weight: FontWeight.w600).copyWith(color: HAAColors.muted)),
+                const Spacer(),
+                _countUnit(days.toString().padLeft(2, '0'), 'days'),
+                _colon(),
+                _countUnit(hours.toString().padLeft(2, '0'), 'hrs'),
+                _colon(),
+                _countUnit(minutes.toString().padLeft(2, '0'), 'min'),
+                _colon(),
+                _countUnit(seconds.toString().padLeft(2, '0'), 'sec'),
+              ],
+            ),
     );
   }
 

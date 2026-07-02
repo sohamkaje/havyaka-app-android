@@ -96,7 +96,7 @@ class ScheduleEvent {
     required this.details,
     required this.icon,
     this.chapter,
-    this.venue = 'Main Auditorium',
+    this.venue = 'Ahichhatra Auditorium',
     this.isHighlight = false,
   });
 
@@ -277,7 +277,7 @@ class StarAttraction {
       title: 'Maya Leela — Youth Dance Production',
       subtitle: 'Dance drama by all chapter youth',
       description:
-          'A grand dance drama production bringing together youth from HAA chapters across North America — a highlight of Friday evening\'s cultural program in the Main Auditorium.',
+          'A grand dance drama production bringing together youth from HAA chapters across North America — a highlight of Friday evening\'s cultural program in the Ahichhatra Auditorium.',
       kannada: 'ಮಾಯಾ ಲೀಲಾ — ಯುವ ನೃತ್ಯ ನಿರೂಪಣೆ',
       iconColor: HAAColors.orange,
     ),
@@ -307,7 +307,7 @@ class StarAttraction {
       title: 'Jugalbandi of Music',
       subtitle: 'Vinayak Hegde & team',
       description:
-          'A musical jugalbandi featuring Vinayak Hegde and team — an evening of collaborative classical performance and virtuoso interplay in the Main Auditorium.',
+          'A musical jugalbandi featuring Vinayak Hegde and team — an evening of collaborative classical performance and virtuoso interplay in the Ahichhatra Auditorium.',
       kannada: 'ಸಂಗೀತ ಜುಗಲ್ಬಂದಿ',
       iconColor: HAAColors.orange,
     ),
@@ -479,46 +479,79 @@ class CampusArea {
 
   static const conventionAreas = [
     CampusArea(
-      label: 'Main Auditorium',
-      color: Color(0xFFF5D76E),
-      description:
-          'Opening ceremony, cultural programs, Yakshagana, musical night, and General Body Meeting.',
+      label: 'Annapoorna Bhojana Shale (Gym)',
+      color: Color(0xFFE57373),
+      description: 'Breakfast, lunch, and dinner.',
     ),
     CampusArea(
-      label: 'Gym — Lunch / Dinner',
-      color: Color(0xFFF5C6A5),
-      description: 'Breakfast, networking lunch, dinners, and Sunday lunch-to-go.',
+      label: 'Havya Paakashale (Cafeteria)',
+      color: Color(0xFFE57373),
+      description: 'Tea and snacks.',
     ),
     CampusArea(
-      label: 'Tea Break',
-      color: Color(0xFFF5C6A5),
-      description: 'Afternoon tea breaks during the program.',
+      label: 'Ahichhatra Auditorium',
+      color: Color(0xFF81C784),
+      description: 'Main program hall for cultural programs and ceremonies.',
     ),
     CampusArea(
-      label: 'Outdoor Lawn (Homa)',
-      color: Color(0xFFA5D6A7),
-      description: 'Gana Homa & Rudra Homa on Friday morning.',
+      label: 'Vishwamitra Kutira (Library)',
+      color: Color(0xFF81C784),
+      description: 'Youth activity center.',
+    ),
+    CampusArea(
+      label: 'Havya Kavya Yaga Shale (Courtyard)',
+      color: Color(0xFF81C784),
+      description: 'Homa and rituals in the central courtyard.',
+    ),
+    CampusArea(
+      label: 'Jaatre — Corridor Stalls',
+      color: Color(0xFFFFB74D),
+      description: 'Exhibition and artisan market along the left corridor.',
+    ),
+    CampusArea(
+      label: 'Exhibition & Sales',
+      color: Color(0xFFCE93D8),
+      description: 'Angirasa Kutira (201) and Atri Kutira (203).',
     ),
     CampusArea(
       label: 'Breakout Rooms',
-      color: Colors.white,
-      description: 'Bhagavad Geetha, Jyothishya, satsang, and other breakout sessions.',
+      color: Color(0xFFA5D6A7),
+      description: 'Bharadvaja Kutira (204) and Jamadagni Kutira (206).',
+    ),
+    CampusArea(
+      label: 'Practice Rooms',
+      color: Color(0xFFC8E6C9),
+      description: 'Open practice in rooms 105, 106, 107, 200, 202, and 207.',
       needsBorder: true,
     ),
     CampusArea(
-      label: 'Library / Youth Zone',
+      label: 'Green Rooms (Backstage)',
+      color: Color(0xFF388E3C),
+      description:
+          'Orchestra Room (ladies), Drama Storage (mens), and Scene Storage (common).',
+    ),
+    CampusArea(
+      label: 'Dressing Rooms',
       color: Color(0xFF90CAF9),
-      description: 'Youth activities and lounge space.',
+      description: 'Mens dressing (101, 103) and ladies dressing (102, 104).',
     ),
     CampusArea(
-      label: 'Registration',
-      color: Color(0xFFCE93D8),
-      description: 'Convention check-in near the main entrance.',
+      label: 'Reserved Rooms',
+      color: Color(0xFFFFF9C4),
+      description:
+          'Gautama Kutira (205) — Yakshagana; Vasishta Kutira (209) — Youth Symphony; Kashyapa Kutira (208) — supply.',
+      needsBorder: true,
     ),
     CampusArea(
-      label: 'Parking Lot',
-      color: Color(0xFFB0BEC5),
-      description: 'Free parking off N Edgelawn Dr.',
+      label: 'Check-in Desk',
+      color: Color(0xFFF48FB1),
+      description: 'Convention registration at the main entrance.',
+    ),
+    CampusArea(
+      label: 'Hallways',
+      color: Color(0xFFF5F0E1),
+      description: 'Walking paths connecting all venue areas.',
+      needsBorder: true,
     ),
   ];
 }

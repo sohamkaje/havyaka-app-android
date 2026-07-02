@@ -538,7 +538,7 @@ class _CheckInQRSheetState extends State<CheckInQRSheet> {
   Timer? _pollTimer;
 
   static const steps = [
-    ('1', 'Head to the Check-In Desk', 'When you arrive at the venue, walk up to the Main Registration & Check-In Desk in the event hall.'),
+    ('1', 'Head to the Check-In Desk', 'When you arrive at Rosary College Prep, walk to the Check-in Desk at the main entrance.'),
     ('2', 'Show your QR code', 'Present the QR code below to one of our volunteers — on your phone screen or a printout.'),
     ('3', 'Collect your badges & souvenir', "Once scanned, you'll receive your official name badges and your custom convention souvenir packet."),
   ];

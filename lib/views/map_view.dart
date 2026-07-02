@@ -151,8 +151,8 @@ class _MapViewState extends State<MapView> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Rosary College Prep — Campus Layout', style: HAAFonts.sans(13, weight: FontWeight.bold).copyWith(color: HAAColors.charcoal)),
-                      Text('Single-floor venue map · pinch to zoom', style: HAAFonts.sans(11).copyWith(color: HAAColors.muted)),
+                      Text('Rosary College Prep — Venue Guide', style: HAAFonts.sans(13, weight: FontWeight.bold).copyWith(color: HAAColors.charcoal)),
+                      Text('HAA Convention 2026 · pinch to zoom', style: HAAFonts.sans(11).copyWith(color: HAAColors.muted)),
                     ],
                   ),
                 ),
@@ -348,13 +348,17 @@ class _VenueBlueprintSheetState extends State<_VenueBlueprintSheet> {
             padding: const EdgeInsets.symmetric(horizontal: HAASpacing.lg, vertical: 10),
             child: Row(
               children: [
-                _legendChip(const Color(0xFFF5C6A5), 'Meals / Tea'),
-                _legendChip(const Color(0xFFF5D76E), 'Auditorium'),
-                _legendChip(const Color(0xFF90CAF9), 'Library / Youth'),
-                _legendChip(const Color(0xFFA5D6A7), 'Outdoor Lawn'),
-                _legendChip(const Color(0xFFCE93D8), 'Registration'),
+                _legendChip(const Color(0xFFE57373), 'Dining'),
+                _legendChip(const Color(0xFF81C784), 'Main Halls'),
+                _legendChip(const Color(0xFFFFB74D), 'Jaatre'),
+                _legendChip(const Color(0xFFCE93D8), 'Exhibition'),
+                _legendChip(const Color(0xFFA5D6A7), 'Breakout'),
+                _legendChip(const Color(0xFFC8E6C9), 'Practice', stroke: true),
+                _legendChip(const Color(0xFF388E3C), 'Green Rooms'),
+                _legendChip(const Color(0xFF90CAF9), 'Dressing'),
+                _legendChip(const Color(0xFFFFF9C4), 'Reserved', stroke: true),
+                _legendChip(const Color(0xFFF48FB1), 'Check-in'),
                 _legendChip(const Color(0xFFF5F0E1), 'Hallways', stroke: true),
-                _legendChip(Colors.white, 'Breakout Rooms', stroke: true),
               ],
             ),
           ),
@@ -367,13 +371,17 @@ class _VenueBlueprintSheetState extends State<_VenueBlueprintSheet> {
                 controller: controller,
                 child: Padding(
                   padding: const EdgeInsets.all(HAASpacing.lg),
-                  child: Image.asset('assets/images/rosary_campus_map.png', width: 360),
+                  child: Image.asset(
+                    'assets/images/rosary_campus_map.png',
+                    width: MediaQuery.of(context).size.width - (HAASpacing.lg * 2),
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
             ),
           ),
           Container(
-            height: 180,
+            height: 220,
             color: HAAColors.cream,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
