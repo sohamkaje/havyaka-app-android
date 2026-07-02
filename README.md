@@ -139,6 +139,20 @@ Build a release APK:
 flutter build apk --release
 ```
 
+### Google Play Store
+
+Application ID: **`org.havyak.haa_convention`**
+
+Full deployment steps (Play Console account, signing keystore, AAB build, store listing, upload): see **[docs/google-play-deployment.md](docs/google-play-deployment.md)**.
+
+Quick release build:
+
+```bash
+# 1. Create android/key.properties (see android/key.properties.example)
+# 2. Run android/create-upload-keystore.ps1 if you don't have a keystore yet
+flutter build appbundle --release
+```
+
 **Android notes:**
 
 - Enable **Developer Mode** on Windows if plugin builds fail due to symlink support.

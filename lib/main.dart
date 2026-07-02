@@ -27,39 +27,45 @@ class _ContentViewState extends State<ContentView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: IndexedStack(
-        index: _selectedTab,
-        children: [
-          HomeView(
-            onNavigateTab: (tab) => setState(() => _selectedTab = tab),
-            onNavigateMore: (section) {
-              setState(() {
-                _moreSectionRequest = section;
-                _selectedTab = 4;
-              });
-            },
-          ),
-          const ScheduleView(),
-          const MapView(),
-          PhotosView(
-            onNavigateTab: (tab) => setState(() => _selectedTab = tab),
-            onNavigateMore: (section) {
-              setState(() {
-                _moreSectionRequest = section;
-                _selectedTab = 4;
-              });
-            },
-          ),
-          InfoAccountView(
-            moreSectionRequest: _moreSectionRequest,
-            onSectionHandled: () => _moreSectionRequest = null,
-          ),
-        ],
-      ),
-      bottomNavigationBar: HAATabBar(
-        selectedTab: _selectedTab,
-        onTabSelected: (i) => setState(() => _selectedTab = i),
+    return PopScope(
+      canPop: _selectedTab == 0,
+      onPopInvokedWithResult: (didPop, _) {
+        if (!didPop) setState(() => _selectedTab = 0);
+      },
+      child: Scaffold(
+        body: IndexedStack(
+          index: _selectedTab,
+          children: [
+            HomeView(
+              onNavigateTab: (tab) => setState(() => _selectedTab = tab),
+              onNavigateMore: (section) {
+                setState(() {
+                  _moreSectionRequest = section;
+                  _selectedTab = 4;
+                });
+              },
+            ),
+            const ScheduleView(),
+            const MapView(),
+            PhotosView(
+              onNavigateTab: (tab) => setState(() => _selectedTab = tab),
+              onNavigateMore: (section) {
+                setState(() {
+                  _moreSectionRequest = section;
+                  _selectedTab = 4;
+                });
+              },
+            ),
+            InfoAccountView(
+              moreSectionRequest: _moreSectionRequest,
+              onSectionHandled: () => _moreSectionRequest = null,
+            ),
+          ],
+        ),
+        bottomNavigationBar: HAATabBar(
+          selectedTab: _selectedTab,
+          onTabSelected: (i) => setState(() => _selectedTab = i),
+        ),
       ),
     );
   }

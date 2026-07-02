@@ -49,19 +49,28 @@ class _AccessViewState extends State<AccessView> {
       });
     }
 
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          _hero(),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(HAASpacing.lg, 28, HAASpacing.lg, 90),
-            child: switch (screen) {
-              _AuthScreen.welcome => _welcomeContent(),
-              _AuthScreen.signUp => _signUpContent(auth, network),
-              _AuthScreen.logIn => _logInContent(auth, network),
-            },
-          ),
-        ],
+    return PopScope(
+      canPop: screen == _AuthScreen.welcome,
+      onPopInvokedWithResult: (didPop, _) {
+        if (!didPop) {
+          _resetForm();
+          setState(() => screen = _AuthScreen.welcome);
+        }
+      },
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            _hero(),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(HAASpacing.lg, 28, HAASpacing.lg, 90),
+              child: switch (screen) {
+                _AuthScreen.welcome => _welcomeContent(),
+                _AuthScreen.signUp => _signUpContent(auth, network),
+                _AuthScreen.logIn => _logInContent(auth, network),
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

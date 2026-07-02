@@ -1,4 +1,4 @@
-package com.example.havyaka_app_android
+package org.havyak.haa_convention
 
 import io.flutter.embedding.android.FlutterActivity
 

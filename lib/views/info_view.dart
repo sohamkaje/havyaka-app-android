@@ -34,55 +34,61 @@ class _InfoAccountViewState extends State<InfoAccountView> {
     final auth = context.watch<AuthViewModel>();
     final network = context.watch<NetworkMonitor>();
 
-    return Column(
-      children: [
-        HAANavBar(
-          title: section == InfoAccountSection.info ? 'Convention Info' : 'My Account',
-          subtitle: section == InfoAccountSection.info ? 'Everything you need to know' : 'Registration & profile',
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(HAASpacing.lg, 12, HAASpacing.lg, 12),
-          child: Container(
-            padding: const EdgeInsets.all(4),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(HAARadius.md),
-              border: Border.all(color: HAAColors.border, width: 0.5),
-            ),
-            child: Row(
-              children: InfoAccountSection.values.map((item) {
-                final selected = section == item;
-                return Expanded(
-                  child: GestureDetector(
-                    onTap: () => setState(() => section = item),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      decoration: BoxDecoration(
-                        color: selected ? HAAColors.orange : Colors.transparent,
-                        borderRadius: BorderRadius.circular(HAARadius.sm),
-                      ),
-                      child: Text(
-                        item == InfoAccountSection.info ? 'Info' : 'Account',
-                        textAlign: TextAlign.center,
-                        style: HAAFonts.sans(13, weight: FontWeight.w600).copyWith(color: selected ? Colors.white : HAAColors.muted),
+    return PopScope(
+      canPop: section == InfoAccountSection.info,
+      onPopInvokedWithResult: (didPop, _) {
+        if (!didPop) setState(() => section = InfoAccountSection.info);
+      },
+      child: Column(
+        children: [
+          HAANavBar(
+            title: section == InfoAccountSection.info ? 'Convention Info' : 'My Account',
+            subtitle: section == InfoAccountSection.info ? 'Everything you need to know' : 'Registration & profile',
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(HAASpacing.lg, 12, HAASpacing.lg, 12),
+            child: Container(
+              padding: const EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(HAARadius.md),
+                border: Border.all(color: HAAColors.border, width: 0.5),
+              ),
+              child: Row(
+                children: InfoAccountSection.values.map((item) {
+                  final selected = section == item;
+                  return Expanded(
+                    child: GestureDetector(
+                      onTap: () => setState(() => section = item),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        decoration: BoxDecoration(
+                          color: selected ? HAAColors.orange : Colors.transparent,
+                          borderRadius: BorderRadius.circular(HAARadius.sm),
+                        ),
+                        child: Text(
+                          item == InfoAccountSection.info ? 'Info' : 'Account',
+                          textAlign: TextAlign.center,
+                          style: HAAFonts.sans(13, weight: FontWeight.w600).copyWith(color: selected ? Colors.white : HAAColors.muted),
+                        ),
                       ),
                     ),
-                  ),
-                );
-              }).toList(),
+                  );
+                }).toList(),
+              ),
             ),
           ),
-        ),
-        if (section == InfoAccountSection.account && !network.isConnected)
-          const OfflineBanner(message: 'No internet connection. Sign in, sign up, and check-in require service.'),
-        Expanded(
-          child: section == InfoAccountSection.info
-              ? const InfoTabContent()
-              : auth.isLoggedIn
-                  ? const ProfileView()
-                  : const AccessView(),
-        ),
-      ],
+          if (section == InfoAccountSection.account && !network.isConnected)
+            const OfflineBanner(message: 'No internet connection. Sign in, sign up, and check-in require service.'),
+          Expanded(
+            child: section == InfoAccountSection.info
+                ? const InfoTabContent()
+                : auth.isLoggedIn
+                    ? const ProfileView()
+                    : const AccessView(),
+          ),
+        ],
+      ),
     );
   }
 }
